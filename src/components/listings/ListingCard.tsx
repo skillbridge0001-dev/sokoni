@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useFavorites } from "@/hooks/useFavorites";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 
 interface ListingCardProps {
   id: string;
@@ -43,10 +44,12 @@ export function ListingCard({
       <article className="listing-card flex flex-col h-full">
         {/* Image Container */}
         <div className="relative aspect-[4/3] overflow-hidden">
-          <img
+          <OptimizedImage
             src={image}
             alt={title}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            className="w-full h-full transition-transform duration-500 group-hover:scale-110"
+            width={400}
+            priority={false}
           />
           
           {/* Overlay Gradient */}

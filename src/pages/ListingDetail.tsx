@@ -13,8 +13,10 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import { useConversation } from "@/hooks/useConversation";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 
 interface Listing {
   id: string;
@@ -52,6 +54,7 @@ export default function ListingDetail() {
   const { type, id } = useParams<{ type: string; id: string }>();
   const { user } = useAuth();
   const { toast } = useToast();
+  const { startConversation, isCreating } = useConversation();
   
   const [listing, setListing] = useState<Listing | null>(null);
   const [seller, setSeller] = useState<Profile | null>(null);
@@ -394,7 +397,7 @@ export default function ListingDetail() {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex gap-3">
+            <div className="flex gap-3 flex-wrap">
               <Button 
                 variant={isFavorited ? "default" : "outline"} 
                 size="icon"
@@ -405,6 +408,18 @@ export default function ListingDetail() {
               <Button variant="outline" size="icon" onClick={handleShare}>
                 <Share2 className="h-4 w-4" />
               </Button>
+              {/* In-app Message Button */}
+              {listing && user?.id !== listing.user_id && (
+                <Button
+                  variant="secondary"
+                  className="flex-1"
+                  onClick={() => startConversation(listing.id, listing.user_id)}
+                  disabled={isCreating}
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  Message
+                </Button>
+              )}
               {seller?.phone && (
                 <Button asChild className="flex-1">
                   <a href={`https://wa.me/${seller.phone.replace(/\D/g, '')}`} target="_blank">
