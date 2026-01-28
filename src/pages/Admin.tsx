@@ -7,11 +7,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
-import { Shield, Users, Package, FileText, Search, Trash2, Eye, Loader2, AlertTriangle } from "lucide-react";
+import { Shield, Users, Package, FileText, Search, Trash2, Eye, Loader2, AlertTriangle, Star } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { format } from "date-fns";
+import { SponsorRequestsManager } from "@/components/admin/SponsorRequestsManager";
 
 interface Listing {
   id: string;
@@ -250,6 +251,7 @@ export default function Admin() {
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList>
               <TabsTrigger value="listings">Listings</TabsTrigger>
+              <TabsTrigger value="sponsors">Sponsors</TabsTrigger>
               <TabsTrigger value="users">Users</TabsTrigger>
               <TabsTrigger value="audit">Audit Logs</TabsTrigger>
             </TabsList>
@@ -330,6 +332,9 @@ export default function Admin() {
                 </CardContent>
               </Card>
             )}
+
+            {/* Sponsors Tab */}
+            {activeTab === "sponsors" && <SponsorRequestsManager />}
 
             {/* Users Tab */}
             {activeTab === "users" && (
