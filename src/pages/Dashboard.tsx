@@ -8,11 +8,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
-import { Plus, Eye, Edit, Trash2, Package, Sparkles, Calendar, TrendingUp, Heart, BarChart3, Loader2 } from "lucide-react";
+import { Plus, Eye, Edit, Trash2, Package, Sparkles, Calendar, TrendingUp, Heart, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { ListingForm } from "@/components/dashboard/ListingForm";
+import { SponsorRequestButton } from "@/components/dashboard/SponsorRequestButton";
 import { cn } from "@/lib/utils";
 
 interface Listing {
@@ -338,6 +339,11 @@ export default function Dashboard() {
                         <Button variant="ghost" size="icon" onClick={() => handleEdit(listing)}>
                           <Edit className="h-4 w-4" />
                         </Button>
+
+                        <SponsorRequestButton 
+                          listingId={listing.id} 
+                          listingTitle={listing.title} 
+                        />
 
                         <AlertDialog>
                           <AlertDialogTrigger asChild>

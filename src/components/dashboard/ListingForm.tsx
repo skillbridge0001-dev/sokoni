@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2 } from "lucide-react";
+import { ImageUploader } from "./ImageUploader";
 
 interface ListingFormProps {
   listing?: any;
@@ -39,8 +40,9 @@ export function ListingForm({ listing, onSuccess, onCancel }: ListingFormProps) 
     is_negotiable: listing?.is_negotiable || false,
     delivery_available: listing?.delivery_available || false,
     event_date: listing?.event_date ? new Date(listing.event_date).toISOString().slice(0, 16) : "",
-    images: listing?.images?.join(", ") || "",
   });
+  
+  const [images, setImages] = useState<string[]>(listing?.images || []);
 
   const handleChange = (field: string, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -69,11 +71,6 @@ export function ListingForm({ listing, onSuccess, onCancel }: ListingFormProps) 
 
     setIsLoading(true);
 
-    const imagesArray = formData.images
-      .split(",")
-      .map((url) => url.trim())
-      .filter((url) => url);
-
     const listingData = {
       user_id: user.id,
       title: formData.title,
@@ -87,7 +84,7 @@ export function ListingForm({ listing, onSuccess, onCancel }: ListingFormProps) 
       is_negotiable: formData.is_negotiable,
       delivery_available: formData.delivery_available,
       event_date: formData.event_date ? new Date(formData.event_date).toISOString() : null,
-      images: imagesArray,
+      images: images,
       status: "available" as const,
     };
 
@@ -243,16 +240,12 @@ export function ListingForm({ listing, onSuccess, onCancel }: ListingFormProps) 
 
       {/* Images */}
       <div className="space-y-2">
-        <Label htmlFor="images">Image URLs (comma-separated)</Label>
-        <Input
-          id="images"
-          value={formData.images}
-          onChange={(e) => handleChange("images", e.target.value)}
-          placeholder="https://example.com/image1.jpg, https://example.com/image2.jpg"
+        <Label>Images</Label>
+        <ImageUploader 
+          images={images} 
+          onImagesChange={setImages}
+          maxImages={5}
         />
-        <p className="text-xs text-muted-foreground">
-          Enter image URLs separated by commas. Maximum 5 images.
-        </p>
       </div>
 
       {/* Options */}
