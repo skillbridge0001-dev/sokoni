@@ -19,6 +19,7 @@ import Privacy from "./pages/Privacy";
 import ListingDetail from "./pages/ListingDetail";
 import Profile from "./pages/Profile";
 import Favorites from "./pages/Favorites";
+import Messages from "./pages/Messages";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,6 +40,7 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/favorites" element={<Favorites />} />
+            <Route path="/messages" element={<Messages />} />
             <Route path="/profile/:userId" element={<Profile />} />
             <Route
               path="/dashboard"
