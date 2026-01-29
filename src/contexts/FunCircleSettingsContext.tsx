@@ -51,17 +51,29 @@ export function FunCircleSettingsProvider({ children }: { children: ReactNode })
     localStorage.setItem("fun-circle-settings", JSON.stringify(settings));
   }, [settings]);
 
-  // Apply theme mode
+  // Apply theme mode to document
   useEffect(() => {
     const root = document.documentElement;
     const { mode } = settings.theme;
 
     if (mode === "system") {
       const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      root.classList.toggle("fun-circle-dark", systemDark);
+      root.classList.toggle("dark", systemDark);
+    } else if (mode === "dark") {
+      root.classList.add("dark");
     } else {
-      root.classList.toggle("fun-circle-dark", mode === "dark");
+      root.classList.remove("dark");
     }
+
+    // Listen for system theme changes when in system mode
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleChange = (e: MediaQueryListEvent) => {
+      if (settings.theme.mode === "system") {
+        root.classList.toggle("dark", e.matches);
+      }
+    };
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
   }, [settings.theme.mode]);
 
   const updateTheme = (theme: Partial<FunCircleTheme>) => {

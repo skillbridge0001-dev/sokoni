@@ -7,7 +7,7 @@ import { MessagesDrawer } from "@/components/fun-circle/MessagesDrawer";
 import { MobileFriendsSheet } from "@/components/fun-circle/MobileFriendsSheet";
 import { ProfileHeader } from "@/components/fun-circle/ProfileHeader";
 import { FunCircleSettingsSheet } from "@/components/fun-circle/FunCircleSettingsSheet";
-import { FunCircleSettingsProvider, useFunCircleSettings } from "@/contexts/FunCircleSettingsContext";
+import { FunCircleSettingsProvider } from "@/contexts/FunCircleSettingsContext";
 import { useFunCircleStories, ReactionType } from "@/hooks/useFunCircleStories";
 import { useFunCircleMessages } from "@/hooks/useFunCircleMessages";
 import { useAuth } from "@/contexts/AuthContext";
@@ -16,11 +16,9 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MessageCircle, Users, Sparkles, LogIn, Bell, X } from "lucide-react";
 import { Link } from "react-router-dom";
-import { cn } from "@/lib/utils";
 
 function FunCircleContent() {
   const { user } = useAuth();
-  const { settings } = useFunCircleSettings();
   const { stories, isLoading, addReaction, deleteStory } = useFunCircleStories();
   const { 
     startConversation, 
@@ -54,12 +52,6 @@ function FunCircleContent() {
     addReaction(storyId, reactionType);
   };
 
-  // Apply theme class based on settings
-  const themeClass = cn({
-    "fun-circle-dark": settings.theme.mode === "dark",
-    "fun-circle-light": settings.theme.mode === "light",
-  });
-
   if (!user) {
     return (
       <Layout>
@@ -91,7 +83,7 @@ function FunCircleContent() {
 
   return (
     <Layout>
-      <div className={cn("container py-6", themeClass)}>
+      <div className="container py-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
           <div className="flex items-center gap-3">
