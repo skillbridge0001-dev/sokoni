@@ -32,8 +32,23 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="SokoniArena" />
-    <link rel="apple-touch-icon" href="/pwa-192x192.png" />
+    
+    <!-- Favicon Configuration - Multiple Sizes for All Devices -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="manifest" href="/manifest.webmanifest" />
+    
+    <!-- Additional Favicon Meta Tags for SEO -->
+    <meta name="msapplication-TileColor" content="#8B5CF6" />
+    <meta name="msapplication-TileImage" content="/favicon-144x144.png" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+    <meta name="theme-color" content="#8B5CF6" />
     
     <!-- Open Graph -->
     <meta property="og:title" content="Sokoni Arena Kenya — Buy & Sell Online" />
@@ -42,20 +57,20 @@
     <meta property="og:url" content="https://sokoniarena.co.ke/" />
     <meta property="og:site_name" content="Sokoni Arena" />
     <meta property="og:locale" content="en_KE" />
-    <meta property="og:image" content="/favicon.png" />
-    <meta property="og:image:alt" content="Sokoni Arena logo" />
+    <meta property="og:image" content="https://sokoniarena.co.ke/favicon-512x512.png" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:image:alt" content="Sokoni Arena Logo - Kenya's Online Marketplace" />
+    <meta property="og:image:type" content="image/png" />
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@SokoniArena" />
+    <meta name="twitter:creator" content="@SokoniArena" />
     <meta name="twitter:title" content="Sokoni Arena Kenya — Buy & Sell Online" />
     <meta name="twitter:description" content="Post free ads, buy & sell across Kenya: electronics, cars, property, fashion, jobs & services." />
-    <meta name="twitter:image" content="/favicon.png" />
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/favicon.png" />
-    <link rel="shortcut icon" href="/favicon.png" />
+    <meta name="twitter:image" content="https://sokoniarena.co.ke/favicon-512x512.png" />
+    <meta name="twitter:image:alt" content="Sokoni Arena Logo" />
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -70,7 +85,13 @@
       "name": "Sokoni Arena",
       "alternateName": "sokoniarena",
       "url": "https://sokoniarena.co.ke/",
-      "inLanguage": "en-KE"
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://sokoniarena.co.ke/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "inLanguage": "en-KE",
+      "description": "Kenya's premier online marketplace for buying and selling goods and services"
     }
     </script>
 
@@ -80,14 +101,78 @@
       "@type": "Organization",
       "name": "Sokoni Arena",
       "url": "https://sokoniarena.co.ke/",
-      "logo": "/favicon.png",
-      "areaServed": "KE"
+      "logo": "https://sokoniarena.co.ke/favicon-512x512.png",
+      "sameAs": [
+        "https://www.facebook.com/sokoniarena",
+        "https://twitter.com/SokoniArena",
+        "https://www.instagram.com/sokoniarena"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+254-XXX-XXXXXX",
+        "contactType": "Customer Service",
+        "areaServed": "KE",
+        "availableLanguage": ["en", "sw"]
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Kenya"
+      }
     }
     </script>
+
+    <!-- Hidden Links for SEO Crawlers -->
+    <div style="display: none; visibility: hidden; height: 0; width: 0; overflow: hidden;">
+      <!-- Important Site Links for Search Engines -->
+      <a href="https://sokoniarena.co.ke/login" rel="nofollow">Login to Sokoni Arena</a>
+      <a href="https://sokoniarena.co.ke/register" rel="nofollow">Register on Sokoni Arena</a>
+      <a href="https://sokoniarena.co.ke/funcircle" rel="nofollow">FunCircle - Social Media Platform</a>
+      <a href="https://sokoniarena.co.ke/services" rel="nofollow">Services offered on Sokoni Arena</a>
+      <a href="https://sokoniarena.co.ke/products" rel="nofollow">Products Marketplace</a>
+      <a href="https://sokoniarena.co.ke/products/f48e4850-9d9f-42bd-8dc6-b8e366a535c0" rel="nofollow">Swift Monoblock - A powerful electronic device for sale</a>
+      <a href="https://sokoniarena.co.ke/events" rel="nofollow">Events and Activities</a>
+      <a href="https://sokoniarena.co.ke/fun-circle" rel="nofollow">FunCircle - Social media platform similar to Facebook and WhatsApp</a>
+      <a href="https://sokoniarena.co.ke/dashboard" rel="nofollow">User Dashboard</a>
+      <a href="https://sokoniarena.co.ke/products/3c3d7be4-4e3b-4e28-8c7f-5f36c4554234" rel="nofollow">Audi A4 S-Line 2017 Model for sale</a>
+      <a href="https://sokoniarena.co.ke/services/9e97df1f-22f6-4ad6-a2c7-6bf6ac994259" rel="nofollow">Web Development Services by The Matrix Nexus CoreTech</a>
+      <a href="https://sokoniarena.co.ke/categories/electronics" rel="nofollow">Electronics for Sale</a>
+      <a href="https://sokoniarena.co.ke/categories/vehicles" rel="nofollow">Vehicles for Sale</a>
+      <a href="https://sokoniarena.co.ke/categories/property" rel="nofollow">Property Listings</a>
+      <a href="https://sokoniarena.co.ke/categories/fashion" rel="nofollow">Fashion and Clothing</a>
+      <a href="https://sokoniarena.co.ke/categories/jobs" rel="nofollow">Job Listings</a>
+      <a href="https://sokoniarena.co.ke/about" rel="nofollow">About Sokoni Arena</a>
+      <a href="https://sokoniarena.co.ke/contact" rel="nofollow">Contact Us</a>
+      <a href="https://sokoniarena.co.ke/help" rel="nofollow">Help Center</a>
+      <a href="https://sokoniarena.co.ke/terms" rel="nofollow">Terms of Service</a>
+      <a href="https://sokoniarena.co.ke/privacy" rel="nofollow">Privacy Policy</a>
+    </div>
   </head>
 
   <body>
+    <!-- Sitemap reference for search engines -->
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    
+    <!-- Additional meta information -->
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Additional hidden content for SEO -->
+    <noscript>
+      <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 9999; padding: 20px;">
+        <h1>Sokoni Arena Kenya - Online Marketplace</h1>
+        <p>Please enable JavaScript to use Sokoni Arena, Kenya's premier online marketplace for buying and selling:</p>
+        <ul>
+          <li><a href="https://sokoniarena.co.ke/login">Login</a></li>
+          <li><a href="https://sokoniarena.co.ke/register">Register</a></li>
+          <li><a href="https://sokoniarena.co.ke/products">Browse Products</a></li>
+          <li><a href="https://sokoniarena.co.ke/services">Services</a></li>
+          <li><a href="https://sokoniarena.co.ke/events">Events</a></li>
+          <li><a href="https://sokoniarena.co.ke/fun-circle">FunCircle Social Media</a></li>
+        </ul>
+      </div>
+    </noscript>
   </body>
 </html>
