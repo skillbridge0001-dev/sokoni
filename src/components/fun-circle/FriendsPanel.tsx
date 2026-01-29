@@ -17,6 +17,7 @@ import {
   Users,
 } from "lucide-react";
 import { useFunCircleFriends, Friend, FriendRequest } from "@/hooks/useFunCircleFriends";
+import { FriendSuggestions } from "./FriendSuggestions";
 import { Link } from "react-router-dom";
 
 interface FriendsPanelProps {
@@ -65,9 +66,19 @@ export function FriendsPanel({ onStartChat }: FriendsPanelProps) {
   };
 
   const handleSendRequest = async (userId: string) => {
-    await sendFriendRequest(userId);
-    setSearchResults(prev => prev.filter(u => u.user_id !== userId));
+    const result = await sendFriendRequest(userId);
+    if (!result.error) {
+      setSearchResults(prev => prev.filter(u => u.user_id !== userId));
+    }
+    return result;
   };
+
+  // Create exclude set for suggestions
+  const excludeIds = new Set([
+    ...friends.map(f => f.user_id),
+    ...sentRequests.map(r => r.addressee_id),
+    ...pendingRequests.map(r => r.requester_id),
+  ]);
 
   return (
     <Card className="h-full">
@@ -144,7 +155,7 @@ export function FriendsPanel({ onStartChat }: FriendsPanelProps) {
           </TabsContent>
 
           <TabsContent value="find" className="mt-0">
-            <div className="p-4">
+            <div className="p-4 pb-2">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
@@ -155,50 +166,55 @@ export function FriendsPanel({ onStartChat }: FriendsPanelProps) {
                 />
               </div>
             </div>
-            <ScrollArea className="h-[250px]">
-              {isSearching ? (
-                <div className="flex items-center justify-center py-8">
-                  <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
-                </div>
-              ) : searchResults.length === 0 ? (
-                <div className="text-center py-8 text-muted-foreground">
-                  {searchQuery.length < 2 ? (
-                    <p>Type at least 2 characters to search</p>
-                  ) : (
+            
+            {searchQuery.length >= 2 ? (
+              <ScrollArea className="h-[250px]">
+                {isSearching ? (
+                  <div className="flex items-center justify-center py-8">
+                    <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+                  </div>
+                ) : searchResults.length === 0 ? (
+                  <div className="text-center py-8 text-muted-foreground">
                     <p>No users found</p>
-                  )}
-                </div>
-              ) : (
-                <div className="divide-y">
-                  {searchResults.map((user) => (
-                    <div
-                      key={user.user_id}
-                      className="flex items-center justify-between p-3 hover:bg-muted/50"
-                    >
-                      <Link
-                        to={`/profile/${user.user_id}`}
-                        className="flex items-center gap-3"
+                  </div>
+                ) : (
+                  <div className="divide-y">
+                    {searchResults.map((user) => (
+                      <div
+                        key={user.user_id}
+                        className="flex items-center justify-between p-3 hover:bg-muted/50"
                       >
-                        <Avatar className="h-10 w-10">
-                          <AvatarImage src={user.avatar_url || ""} />
-                          <AvatarFallback className="bg-primary/10 text-primary">
-                            {user.username.charAt(0).toUpperCase()}
-                          </AvatarFallback>
-                        </Avatar>
-                        <span className="font-medium">{user.username}</span>
-                      </Link>
-                      <Button
-                        size="sm"
-                        onClick={() => handleSendRequest(user.user_id)}
-                      >
-                        <UserPlus className="h-4 w-4 mr-1" />
-                        Add
-                      </Button>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </ScrollArea>
+                        <Link
+                          to={`/profile/${user.user_id}`}
+                          className="flex items-center gap-3"
+                        >
+                          <Avatar className="h-10 w-10">
+                            <AvatarImage src={user.avatar_url || ""} />
+                            <AvatarFallback className="bg-primary/10 text-primary">
+                              {user.username.charAt(0).toUpperCase()}
+                            </AvatarFallback>
+                          </Avatar>
+                          <span className="font-medium">{user.username}</span>
+                        </Link>
+                        <Button
+                          size="sm"
+                          onClick={() => handleSendRequest(user.user_id)}
+                        >
+                          <UserPlus className="h-4 w-4 mr-1" />
+                          Add
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </ScrollArea>
+            ) : (
+              // Show suggestions when not searching
+              <FriendSuggestions
+                onSendRequest={handleSendRequest}
+                excludeIds={excludeIds}
+              />
+            )}
           </TabsContent>
         </Tabs>
       </CardContent>
